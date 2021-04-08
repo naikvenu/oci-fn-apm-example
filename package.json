@@ -1,0 +1,12 @@
+{
+	"name": "apmdemo",
+    "version": "1.0.0",
+	"description": "OCI Fn APM Demo",
+	"main": "func.js",
+	"author": "",
+	"license": "Apache-2.0",
+	"dependencies": {
+		"@fnproject/fdk": ">=0.0.19",
+		"oracledb": "^4.2.0"
+	}
+}
