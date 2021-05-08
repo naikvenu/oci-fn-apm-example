@@ -1,8 +1,6 @@
 <html>
     <style>
         h1 {text-align: center;}
-        body {background-color: #E4DBBF;}
-        tab { padding-left: 4em; }
         #footer {
             position: fixed;
             padding: 10px 10px 0px 10px;
@@ -11,13 +9,28 @@
             height: 40px;
             text-align: center;
         }
+
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            text-align: left;
+        }
+        th, td {
+            padding: 10px;
+        }
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
     </style>
         <head> <br> <h1>OCI Functions Application Performance Monitoring (APM) Demo </h1></head><br><br>
     <body>
         <button type="button" onclick="fetchProducts()">Fetch Products</button>
-        <h3>BRAND <tab>TITLE </tab><tab> DESCRIPTION</tab></h3>
+        <h3>List of Products</h3>
         <div id=demo>
-            <h3>The Query fetched from the Autonomous Database (ATP) would appear here</h3>
+            <table style="width:100%"> 
+                <tr> <th>BRAND</th> <th>TITLE</th> <th>DESCRIPTION</th> </tr>
+                <tr> <td colspan="3">The query results fetched from the Autonomous Database (ATP) would appear here</td> </tr>
+            </table>
         </div>      
      <script>
         function fetchProducts() {
@@ -33,11 +46,13 @@
                     var json = JSON.parse(this.responseText);
                     //console.log (json.metaData[0].name)
                     
+                    text += '<table style="width:100%"> <tr> <th>BRAND</th> <th>TITLE</th> <th>DESCRIPTION</th> </tr>'
                     for (i = 0; i < json.rows.length; i++) {
                         //console.log(json.rows[i], i)
-                        text += json.rows[i][0] + '<tab>' + json.rows[i][1] + '</tab><tab>' + json.rows[i][2] + '</tab><br>'
-                        document.getElementById("demo").innerHTML = text;
+                        text += '<tr><td>' + json.rows[i][0] + '</td> <td>' + json.rows[i][1] + '</td> <td>' + json.rows[i][2] + '</td></tr>'
                     } 
+                    text += '</table>'
+                    document.getElementById("demo").innerHTML = text;
                 }
             };
             xhttp.open("GET", "https://your-api-gateway.apigateway.ap-sydney-1.oci.customer-oci.com/", true);
